@@ -1,0 +1,110 @@
+/* Global Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+/* Page Containers */
+.home-page, .calculators-page, .blogs-page, .contact-page, .dashboard-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero Section */
+.hero-section {
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding: 100px 20px;
+  color: #fff;
+  background-color: #1E3A8A; /* Fallback color */
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.hero-cta {
+  background-color: #D4AF37;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.hero-cta:hover {
+  background-color: #b8972f;
+}
+
+/* Features Section */
+.features {
+  display: flex;
+  justify-content: space-around;
+  padding: 40px 20px;
+  flex-wrap: wrap;
+}
+
+.feature {
+  width: 30%;
+  min-width: 250px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.feature h3 {
+  color: #1E3A8A;
+  font-size: 1.5rem;
+}
+
+.feature p {
+  color: #666;
+}
+
+/* Section Styles */
+.calculators-section, .blogs-section, .contact-section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.blog-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.contact-options {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.contact-chat, .contact-call {
+  width: 45%;
+  min-width: 300px;
+  margin-bottom: 20px;
+}
+
+.call-button {
+  background-color: #1E3A8A;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.call-button:hover {
+  background-color: #162a6b;
+}

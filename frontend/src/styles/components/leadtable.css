@@ -1,0 +1,18 @@
+.lead-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.lead-table th, .lead-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.lead-table th {
+  background-color: #1E3A8A;
+  color: #fff;
+}
