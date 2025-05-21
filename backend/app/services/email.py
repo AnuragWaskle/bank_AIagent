@@ -1,24 +1,39 @@
-import httpx
+import os
+import requests
 from fastapi import HTTPException
-from app.config import EMAILJS_API_KEY, EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID
 
-async def send_email(to_email: str, subject: str, message: str):
+async def send_email(to_email: str, subject: str, message: str, ticket_id: str = None, status: str = None):
+    """
+    Send an email using EmailJS REST API.
+    Args:
+        to_email: Recipient email address
+        subject: Email subject
+        message: Email body or query
+        ticket_id: Optional ticket ID for dynamic variable
+        status: Optional ticket status
+    Returns:
+        bool: True if email sent successfully
+    """
     try:
-        async with httpx.AsyncClient() as client:
-            response = await client.post(
-                "https://api.emailjs.com/api/v1.0/email/send",
-                json={
-                    "service_id": EMAILJS_SERVICE_ID,
-                    "template_id": EMAILJS_TEMPLATE_ID,
-                    "user_id": EMAILJS_API_KEY,
-                    "template_params": {
-                        "to_email": to_email,
-                        "subject": subject,
-                        "message": message
-                    }
-                }
-            )
-            response.raise_for_status()
-            return {"message": "Email sent successfully"}
+        payload = {
+            "service_id": os.getenv("EMAILJS_SERVICE_ID"),
+            "template_id": os.getenv("EMAILJS_TEMPLATE_ID"),
+            "user_id": os.getenv("EMAILJS_API_KEY"),
+            "template_params": {
+                "to_name": to_email.split("@")[0],
+                "user_email": to_email,
+                "ticket_id": ticket_id or "N/A",
+                "query": message,
+                "status": status or "N/A"
+            }
+        }
+        response = requests.post(
+            "https://api.emailjs.com/api/v1.0/email/send",
+            json=payload,
+            headers={"Content-Type": "application/json"}
+        )
+        if response.status_code != 200:
+            raise HTTPException(status_code=500, detail=f"EmailJS error: {response.text}")
+        return True
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"EmailJS error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to send email: {str(e)}")

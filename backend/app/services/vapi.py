@@ -1,16 +1,24 @@
-import httpx
+import os
+import requests
 from fastapi import HTTPException
-from app.config import VAPI_API_KEY
 
-async def handle_voice_query(audio_data: bytes):
+async def log_vapi_call(call_data: dict):
+    """
+    Log Vapi.ai call metadata to the backend.
+    Args:
+        call_data: Dictionary containing call details (e.g., call_id, status)
+    Returns:
+        bool: True if logged successfully
+    """
     try:
-        async with httpx.AsyncClient() as client:
-            response = await client.post(
-                "https://api.vapi.ai/v1/call",  # Replace with actual Vapi.ai endpoint
-                headers={"Authorization": f"Bearer {VAPI_API_KEY}"},
-                data={"audio": audio_data}
-            )
-            response.raise_for_status()
-            return response.json().get("response", "No response from Vapi")
+        # Placeholder: Update with actual Vapi.ai endpoint
+        response = requests.post(
+            "https://api.vapi.ai/call/log",  # Verify with Vapi.ai docs
+            headers={"Authorization": f"Bearer {os.getenv('VAPI_API_KEY')}"},
+            json=call_data
+        )
+        if response.status_code != 200:
+            raise HTTPException(status_code=500, detail=f"Vapi.ai error: {response.text}")
+        return True
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Vapi.ai error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to log Vapi call: {str(e)}")

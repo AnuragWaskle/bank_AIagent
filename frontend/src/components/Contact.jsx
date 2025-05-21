@@ -1,0 +1,3 @@
+import { initiateVoiceCall } from '../utils/vapi';
+// ...
+<button onClick={initiateVoiceCall}>Start Voice Call</button>

@@ -79,6 +79,7 @@ smartbank-project/
    ```
 3. Install dependencies:
    ```bash
+   
    pip install -r requirements.txt
    ```
 4. Create a `.env` file in `/backend` with:
